@@ -1,6 +1,6 @@
 package service
 
-import "github.com/Glack134/websocket/pkg/repository"
+import "github.com/Glack134/web_socket/pkg/repository"
 
 type Authorization interface {
 }
@@ -10,5 +10,7 @@ type Service struct {
 }
 
 func NewService(repos *repository.Repository) *Service {
-	return &Service{}
+	return &Service{
+		Authorization: NewAuthService(repos.Authorization),
+	}
 }

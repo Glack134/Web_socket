@@ -1,4 +1,4 @@
-package websocket
+package web_socket
 
 type User struct {
 	Id       int    `json:"-" db:"id"`
