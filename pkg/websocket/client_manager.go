@@ -6,7 +6,6 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-// Определение структуры ClientManager
 type ClientManager struct {
 	clients    map[*Client]bool
 	broadcast  chan []byte
@@ -14,14 +13,12 @@ type ClientManager struct {
 	unregister chan *Client
 }
 
-// Определение структуры Client
 type Client struct {
 	id     string
 	socket *websocket.Conn
 	send   chan []byte
 }
 
-// Определение структуры Message
 type Message struct {
 	Sender    string `json:"sender,omitempty"`
 	Recipient string `json:"recipient,omitempty"`
@@ -29,7 +26,7 @@ type Message struct {
 }
 
 // Инициализация менеджера клиентов
-var manager = ClientManager{
+var Manager = ClientManager{
 	clients:    make(map[*Client]bool),
 	broadcast:  make(chan []byte),
 	register:   make(chan *Client),
@@ -37,7 +34,7 @@ var manager = ClientManager{
 }
 
 // Метод для запуска менеджера клиентов
-func (manager *ClientManager) start() {
+func (manager *ClientManager) Start() {
 	for {
 		select {
 		case conn := <-manager.register:
@@ -76,19 +73,19 @@ func (manager *ClientManager) send(message []byte, ignore *Client) {
 // Чтение сообщений от клиента
 func (c *Client) read() {
 	defer func() {
-		manager.unregister <- c
+		Manager.unregister <- c
 		c.socket.Close()
 	}()
 
 	for {
 		_, message, err := c.socket.ReadMessage()
 		if err != nil {
-			manager.unregister <- c
+			Manager.unregister <- c
 			c.socket.Close()
 			break
 		}
 		jsonMessage, _ := json.Marshal(&Message{Sender: c.id, Content: string(message)})
-		manager.broadcast <- jsonMessage
+		Manager.broadcast <- jsonMessage
 	}
 }
 

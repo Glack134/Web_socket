@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Test</title>
+</head>
+<body>
+    <h1>WebSocket Test</h1>
+    <input type="text" id="message" placeholder="Enter message" />
+    <button onclick="sendMessage()">Send</button>
+    <div id="messages"></div>
+
+    <script>
+        const ws = new WebSocket('ws://localhost:12346/ws'); // Изменен порт на 12346
+
+        ws.onopen = function() {
+            console.log('WebSocket connection opened');
+        };
+
+        ws.onmessage = function(event) {
+            const messagesDiv = document.getElementById('messages');
+            messagesDiv.innerHTML += `<p>${event.data}</p>`;
+        };
+
+        function sendMessage() {
+            const messageInput = document.getElementById('message');
+            ws.send(messageInput.value);
+            messageInput.value = '';
+        }
+
+        ws.onclose = function() {
+            console.log('WebSocket connection closed');
+        };
+    </script>
+</body>
+</html>
