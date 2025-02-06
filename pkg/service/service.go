@@ -1,8 +1,13 @@
 package service
 
-import "github.com/Glack134/web_socket/pkg/repository"
+import (
+	"github.com/Glack134/web_socket"
+	"github.com/Glack134/web_socket/pkg/repository"
+)
 
 type Authorization interface {
+	CreateUser(user web_socket.User) (int, error)
+	GenerateToken(username, password string) (string, error)
 }
 
 type Service struct {

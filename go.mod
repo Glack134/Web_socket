@@ -11,7 +11,10 @@ require (
 	github.com/spf13/viper v1.19.0
 )
 
-require github.com/lib/pq v1.10.9
+require (
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
+	github.com/lib/pq v1.10.9
+)
 
 require (
 	github.com/bytedance/sonic v1.11.6 // indirect
@@ -48,7 +51,7 @@ require (
 	go.uber.org/atomic v1.9.0 // indirect
 	go.uber.org/multierr v1.9.0 // indirect
 	golang.org/x/arch v0.8.0 // indirect
-	golang.org/x/crypto v0.32.0 // indirect
+	golang.org/x/crypto v0.32.0
 	golang.org/x/exp v0.0.0-20230905200255-921286631fa9 // indirect
 	golang.org/x/net v0.34.0 // indirect
 	golang.org/x/sys v0.29.0 // indirect

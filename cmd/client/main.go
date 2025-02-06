@@ -9,7 +9,7 @@ import (
 
 var upgrader = websocket.Upgrader{
 	CheckOrigin: func(r *http.Request) bool {
-		return true // Позволяет все источники (не рекомендуется для продакшн-среды)
+		return false // Позволяет все источники (не рекомендуется для продакшн-среды)
 	},
 }
 
