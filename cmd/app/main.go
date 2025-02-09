@@ -16,7 +16,6 @@ import (
 )
 
 func main() {
-
 	go websocket.Manager.Start()
 
 	logrus.SetFormatter(new(logrus.JSONFormatter))
