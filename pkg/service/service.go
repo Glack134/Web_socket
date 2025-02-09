@@ -8,6 +8,7 @@ import (
 type Authorization interface {
 	CreateUser(user web_socket.User) (int, error)
 	GenerateToken(username, password string) (string, error)
+	ParseToken(accessToken string) (int, error)
 }
 
 type Service struct {

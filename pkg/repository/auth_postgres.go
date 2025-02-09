@@ -17,10 +17,12 @@ func NewAuthPostgres(db *sqlx.DB) *AuthPostgres {
 
 func (r *AuthPostgres) CreateUser(user web_socket.User) (int, error) {
 	var id int
-	query := fmt.Sprintf(`INSERT INTO %s (name, username, password_hash, email) VALUES ($1, $2, $3, $4)RETURNING id`, usersTable)
+	// Оберните имя таблицы в двойные кавычки, чтобы избежать конфликтов с зарезервированными словами
+	query := fmt.Sprintf(`INSERT INTO %s (name, username, password_hash, email) VALUES ($1, $2, $3, $4) RETURNING id`, usersTable)
+
 	row := r.db.QueryRow(query, user.Name, user.Username, user.Password, user.Email)
 	if err := row.Scan(&id); err != nil {
-		return 0, nil
+		return 0, err
 	}
 	return id, nil
 }

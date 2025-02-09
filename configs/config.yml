@@ -1,4 +1,4 @@
-port: "12345"
+port: "8080"
 
 db:
       username: "postgres"
@@ -6,4 +6,4 @@ db:
       port: "5432"
       dbname: "postgres"
       sslmode: "disable"
-      password: "1"
+      password: "qwe230405180405"
