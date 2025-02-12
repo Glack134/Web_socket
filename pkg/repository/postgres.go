@@ -7,7 +7,9 @@ import (
 )
 
 const (
-	usersTable = "users"
+	usersTable          = "users"
+	web_socketChatTable = "web_socket_chat"
+	usersChatsTable     = "users_chats"
 )
 
 type Config struct {

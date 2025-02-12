@@ -10,12 +10,18 @@ type Authorization interface {
 	GetUser(username, password string) (web_socket.User, error)
 }
 
+type WedsocketChat interface {
+	Create(userId int, list web_socket.WebsocketChat) (int, error)
+}
+
 type Repository struct {
 	Authorization
+	WedsocketChat
 }
 
 func NewRepository(db *sqlx.DB) *Repository {
 	return &Repository{
 		Authorization: NewAuthPostgres(db),
+		WedsocketChat: NewWedsocketChatPostgres(db),
 	}
 }

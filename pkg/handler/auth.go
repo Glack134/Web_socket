@@ -37,11 +37,23 @@ func (h *Handler) SignIn(c *gin.Context) {
 		newErrorResponse(c, http.StatusBadRequest, err.Error())
 		return
 	}
+
+	if input.Email == "" {
+		newErrorResponse(c, http.StatusBadRequest, "Поле для Email не должно быть пустым")
+		return
+	}
+
+	if input.Password == "" {
+		newErrorResponse(c, http.StatusBadRequest, "Поле Password должно быть заполнено")
+		return
+	}
+
 	token, err := h.services.Authorization.GenerateToken(input.Email, input.Password)
 	if err != nil {
 		newErrorResponse(c, http.StatusInternalServerError, err.Error())
 		return
 	}
+
 	c.JSON(http.StatusOK, map[string]interface{}{
 		"token": token,
 	})

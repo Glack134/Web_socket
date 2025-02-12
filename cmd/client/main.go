@@ -9,7 +9,7 @@ import (
 
 var upgrader = websocket.Upgrader{
 	CheckOrigin: func(r *http.Request) bool {
-		return false // Позволяет все источники (не рекомендуется для продакшн-среды)
+		return false
 	},
 }
 
@@ -29,7 +29,6 @@ func wsHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		fmt.Printf("Received message: %s\n", msg)
 
-		// Echo the message back to the client
 		err = conn.WriteMessage(messageType, msg)
 		if err != nil {
 			fmt.Println("Error while writing message:", err)
